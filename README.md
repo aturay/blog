@@ -25,11 +25,11 @@ rails db:setup
 ### JSON API на RoR:
 
 * [Админка](http://localhost:3000/admin)
-+ __log:__  `admin@admin.com`
-+ __pass:__ `password`
+	__log:__  `admin@admin.com`
+	__pass:__ `password`
 
  
-* [Посмотреть в браузере](http://localhost:3000/)
+* [Список постов](http://localhost:3000/)
 
 #### 1. Создать пост:
 ```bash
@@ -64,6 +64,12 @@ curl http://localhost:3000/get_top_posts/101
 * Перейти по ссылке: [get_lists_ip](http://localhost:3000/get_lists_ip)
 ```bash
 curl http://localhost:3000/get_lists_ip
+```
+
+#### RSpec
+* Обязательное наличие спеков
+```bash
+rspec
 ```
 
 ### SQL
