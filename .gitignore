@@ -8,7 +8,9 @@ tmp/*
 db/schema.rb
 Gemfile.lock
 
-config/database.yml
+
 
 .byebug_history
 .env
+
+commands.rb

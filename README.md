@@ -10,14 +10,14 @@
 
 ### Install
 
-Ввести в термин: 
+Ввести в терминал `Ctrl + Alt + t`: 
 ```bash
 git clone git@github.com:aturay/blog.git && cd blog/
 bundle && rails db:create && rails db:migrate
 rails s
 ```
 
-> В новой вкладке (`ctrl + shift + t`) набрать `rails db:setup` для заплнение базы тестовыми данными
+> В новой вкладке (`Ctrl + Shift + t`) набрать `rails db:setup` для заплнение базы тестовыми данными
 ```bash
 rails db:setup
 ```

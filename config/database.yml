@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: utf8
+
+
+development:
+  <<: *default
+  database: blog_development
+
+
+test:
+  <<: *default
+  database: blog_development
+
+
+production:
+  <<: *default
+  database: blog_production
+  username: blog
+  password: <%= ENV['BLOG_DATABASE_PASSWORD'] %>
