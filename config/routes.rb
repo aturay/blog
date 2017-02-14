@@ -8,7 +8,4 @@ Rails.application.routes.draw do
   get 'get_top_posts/:n', to: 'posts#get_top_posts'
   get 'get_top_posts'   , to: 'posts#get_top_posts'
   get 'get_lists_ip'    , to: 'posts#get_lists_ip'
-
-  devise_for :admin_users, ActiveAdmin::Devise.config
-  ActiveAdmin.routes(self)
 end

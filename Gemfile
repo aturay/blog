@@ -38,9 +38,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-ui-rails', '~> 5.0.5'
 gem 'haml'
 gem 'kaminari'
-gem 'devise' #,'~> 4.2.0' || ,'~> 3.0.3' `
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'activerecord-import'
 
 group :development, :test do

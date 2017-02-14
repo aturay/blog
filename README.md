@@ -23,11 +23,6 @@ rails db:setup
 ```
 
 ### JSON API на RoR:
-
-* [Админка](http://localhost:3000/admin)
-	__log:__  `admin@admin.com`
-	__pass:__ `password`
-
  
 * [Список постов](http://localhost:3000/)
 

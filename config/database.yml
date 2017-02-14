@@ -10,7 +10,7 @@ development:
 
 test:
   <<: *default
-  database: blog_development
+  database: blog_test
 
 
 production:
