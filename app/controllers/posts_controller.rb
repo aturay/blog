@@ -59,7 +59,8 @@ class PostsController < InheritedResources::Base
     num     = params[:num]
 
     Rating.create(num: num, post_id: post_id)
-    rating = Rating.where(post_id: post_id).average(:num)
+
+    rating = Rating.rating post_id
 
     render json: { rating: rating }
   end
@@ -71,19 +72,7 @@ class PostsController < InheritedResources::Base
   def get_top_posts
     n = params[:n] || 10
 
-    sql = <<-SQL
-SELECT
-  p.title, p.content, AVG(r.num) AS average
-FROM
-  posts p
-  INNER JOIN ratings r
-    ON p.id = r.post_id
-GROUP BY p.id
-ORDER BY average DESC
-LIMIT #{n}
-SQL
-    posts = ActiveRecord::Base.connection.execute(sql)
-    ActiveRecord::Base.clear_active_connections!
+    posts = Post.top_posts.limit n 
 
     render json: posts
   end
@@ -93,10 +82,7 @@ SQL
   # #=> [{ip: ip, users: ['login_1', 'login_2', ...]}, {}, ...]
   # GET /get_lists_ip
   def get_lists_ip
-    ips = Ip.eager_load(:users).map do |ip|
-      next if ip.users.count <= 1
-      { ip: ip.ip, users: ip.users.map(&:login) }
-    end
+    ips = Ip.lists_ip
 
     render json: ips.compact
   end
