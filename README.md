@@ -73,30 +73,31 @@ rspec
 rails dbconsole
 ```
 
-~~
-~~Ввести следующий блок sql:~~
+~~~
+Ввести следующий блок sql:
 ```SQL
-~~CREATE TEMP TABLE users(id bigserial, group_id bigint);~~
-~~INSERT INTO users(group_id) ~~
-~~VALUES (1), (1), (1), (2), (1), (3);~~
+CREATE TEMP TABLE users(id bigserial, group_id bigint);
+INSERT INTO users(group_id) 
+VALUES (1), (1), (1), (2), (1), (3);
 
-~~SELECT users.group_id as "Группа",~~
-~~	COUNT(users.id) as "Количество записей", MIN(users.id) as "Минимальный id"~~
-~~FROM users ~~
-~~GROUP BY users.group_id;~~
+SELECT users.group_id as "Группа", 
+	COUNT(users.id) as "Количество записей", MIN(users.id) as "Минимальный id"
+FROM users 
+GROUP BY users.group_id;
 ```
-~~В результате:~~
+В результате:
 
-~~| Группа | Количество записей | Минимальный id |~~
-~~| ------ |:------------------:| --------------:|~~
-~~|      1 |                  4 |              1 |~~
-~~|      3 |                  1 |              6 |~~
-~~|      2 |                  1 |              4 |~~
+| Группа | Количество записей | Минимальный id | 
+| ------ |:------------------:| --------------:|
+|      1 |                  4 |              1 |
+|      3 |                  1 |              6 |
+|      2 |                  1 |              4 |
 
-~~(3 rows)~~
+(3 rows)
 
-> SQL задание сделано неверно
-~~
+& SQL задание сделано неверно
+~~~
+
 
 <!-- ```sql
 WITH q AS ( select group_id, row_number() over (order by id) - row_number() over (partition by group_id order by id) as res from users )
