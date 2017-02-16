@@ -29,7 +29,7 @@ users_n.times do |i|
   users << User.new(login: "login_#{i}", ip_id: rand(1..ips_n))
 end
 User.import users
-puts "Created Users: #{Ip.all.count}"
+puts "Created Users: #{User.all.count}"
 
 
 # Create posts
@@ -47,21 +47,3 @@ puts "Created Posts: #{Post.all.count}"
 
 Rating.import ratings
 puts "Created Ratings: #{Rating.all.count}"
-
-
-# Create posts with http request
-10.times do |i|
-  uri = URI.parse("http://localhost:3000/set_post")
-  param = { 'title' => "post_#{i}", 'content' => "content", 'user_login' => "login_#{rand(1..100)}", "ip" => "192.168.0.#{rand(1..49)}" }
-
-  Net::HTTP.post_form(uri, param)
-
-  # Set post rating
-  next unless i % 5 == 0
-  rand(1..5).times do
-    uri = URI.parse("http://localhost:3000/set_rating")
-    param = { 'num' => rand(1..5), 'post_id' => i }
-
-    Net::HTTP.post_form(uri, param)
-  end
-end

@@ -1,4 +1,4 @@
-class PostsController < InheritedResources::Base
+class PostsController < ApplicationController
   def index
     @posts = Post.page params[:page]
   end
@@ -52,9 +52,6 @@ class PostsController < InheritedResources::Base
   # #=> {error}
   # POST /set_rating
   def set_rating
-    # Важно: экшен должен корректно отрабатывать
-    # при любом количестве конкурентных запросов
-    # на оценку одного и того же поста.
     post_id = params[:post_id]
     num     = params[:num]
 
@@ -72,9 +69,9 @@ class PostsController < InheritedResources::Base
   def get_top_posts
     n = params[:n] || 10
 
-    posts = Post.top_posts.limit n 
+    posts = Post.top_posts n
 
-    render json: posts
+    render json: posts.compact
   end
 
 

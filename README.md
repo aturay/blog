@@ -2,6 +2,7 @@
 =================
 
 ### Использованные версии
+	Ubuntu      '16.04'
 	Ruby:       '2.3.1p112'
 	Rails:      '5.0.1'
 	PostgreSQL: '9.3.15'
@@ -10,15 +11,13 @@
 
 ### Install
 
-Ввести в терминал `Ctrl + Alt + t`: 
+Ввести в терминал
 ```bash
 git clone git@github.com:aturay/blog.git && cd blog/
-bundle && rails db:create && rails db:migrate
-rails s
+bundle && rails s
 ```
-
-> В новой вкладке (`Ctrl + Shift + t`) набрать `rails db:setup` для заплнение базы тестовыми данными
-```bash
+> Заполнение базы тестовыми данными
+```
 rails db:setup
 ```
 
@@ -61,54 +60,53 @@ curl http://localhost:3000/get_top_posts/101
 curl http://localhost:3000/get_lists_ip
 ```
 
-#### RSpec
+#### RSpec - Tест
 * Обязательное наличие спеков
 ```bash
+rails s -e test
 rspec
 ```
 
 ### SQL
-* Переместится в текуший интерфейс командной строки:
+* Переместится в текуший интерфейс командной строки
 ```bash
 rails dbconsole
 ```
 
-Ввести следующий блок sql:
+~~
+~~Ввести следующий блок sql:~~
 ```SQL
-CREATE TEMP TABLE users(id bigserial, group_id bigint);
-INSERT INTO users(group_id) 
-VALUES (1), (1), (1), (2), (1), (3);
+~~CREATE TEMP TABLE users(id bigserial, group_id bigint);~~
+~~INSERT INTO users(group_id) ~~
+~~VALUES (1), (1), (1), (2), (1), (3);~~
 
-SELECT users.group_id as "Группа", 
-	COUNT(users.id) as "Количество записей", MIN(users.id) as "Минимальный id"
-FROM users 
-GROUP BY users.group_id;
+~~SELECT users.group_id as "Группа",~~
+~~	COUNT(users.id) as "Количество записей", MIN(users.id) as "Минимальный id"~~
+~~FROM users ~~
+~~GROUP BY users.group_id;~~
 ```
-В результате:
+~~В результате:~~
 
-| Группа | Количество записей | Минимальный id | 
-| ------ |:------------------:| --------------:|
-|      1 |                  4 |              1 |
-|      3 |                  1 |              6 |
-|      2 |                  1 |              4 |
+~~| Группа | Количество записей | Минимальный id |~~
+~~| ------ |:------------------:| --------------:|~~
+~~|      1 |                  4 |              1 |~~
+~~|      3 |                  1 |              6 |~~
+~~|      2 |                  1 |              4 |~~
 
-(3 rows)
+~~(3 rows)~~
 
+> SQL задание сделано неверно
+~~
 
-1. Админку делать не требовалось.
-2. Вся логика в контроллерах.
-3. В запросе на топ посты наблюдается SQL-инъекция.
-4. Топ посты: конкурентность ок, 
-	но запрос будет тормозить на больших объёмах данных, 
-	т.к. нет индексов. 
-	Запрос на айпи уже на 200к записей у меня занимает 300+ мс. 
-	(В задании указано, что должно быть менее 100мс).
-5. Айпи: наблюдается N+1 запрос, опять-таки будет тормозить.
-6. Гонять спеки на девелопмент-базе так себе решение, 
-	все-таки тестовая база должна накатываться 
-	перед каждым прогоном тестов и наполняться заранее известными данными.
+<!-- ```sql
+WITH q AS ( select group_id, row_number() over (order by id) - row_number() over (partition by group_id order by id) as res from users )
 
-В дополнение
-1. SQL задание сделано неверно
-2. спеки не тестируют порядок выдачи записей в списках айпи и постов
-3. Рейтинг будет возвращать неверное значение рейтинга в ответ на запрос set_rating так как другой инстанс может создать запись рейтинга до момента выполнения запроса о среднем значении (при большом количестве конкуррентных запросов)
+SELECT count(*) FROM q GROUP BY group_id, res
+
+вычислить минимальный ID записи в группе
+
+WITH q AS ( select id, group_id, row_number() over (order by id) - row_number() over (partition by group_id order by id) as res from users )
+
+SELECT min(id) as min_id FROM q GROUP BY res, group_id ORDER BY min_id, group_id
+```
+ -->
