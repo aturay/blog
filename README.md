@@ -73,7 +73,7 @@ rspec
 rails dbconsole
 ```
 
-~~~
+
 Ввести следующий блок sql:
 ```SQL
 CREATE TEMP TABLE users(id bigserial, group_id bigint);
@@ -95,11 +95,11 @@ GROUP BY users.group_id;
 
 (3 rows)
 
-& SQL задание сделано неверно
-~~~
+**SQL задание сделано неверно**
 
 
-<!-- ```sql
+<!-- 
+```sql
 WITH q AS ( select group_id, row_number() over (order by id) - row_number() over (partition by group_id order by id) as res from users )
 
 SELECT count(*) FROM q GROUP BY group_id, res
