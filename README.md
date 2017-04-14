@@ -94,11 +94,11 @@ GROUP BY users.group_id;
 |      2 |                  1 |              4 |
 
 (3 rows)
-
+<!--
 **SQL задание сделано неверно**
 
 
-<!-- 
+ 
 ```sql
 WITH q AS ( select group_id, row_number() over (order by id) - row_number() over (partition by group_id order by id) as res from users )
 
