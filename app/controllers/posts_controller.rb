@@ -26,6 +26,7 @@ class PostsController < ApplicationController
     if title.empty? or content.empty?
       msg = 'Заголовок и содержание поста не могут быть пустыми!'
       render json: { error: msg }, status: 422
+
       return
     end
 
