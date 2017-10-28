@@ -1,9 +1,0 @@
-= form_tag('/set_rating') do
-  .field
-    %b= "post_id: #{@post.id}"
-    = hidden_field_tag :post_id, @post.id
-  .field
-    %b Rating:
-    = select_tag :num, options_for_select((1..5).to_a)
-  .actions
-    = submit_tag

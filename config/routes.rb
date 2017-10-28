@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :posts
-  root 'posts#index'
 
   post 'set_post'   , to: 'posts#set_post'
   post 'set_rating' , to: 'posts#set_rating'

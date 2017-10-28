@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: ips
+#
+#  id :integer          not null, primary key
+#  ip :string
+#
+
 class Ip < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :posts, dependent: :destroy

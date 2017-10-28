@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: posts
+#
+#  id      :integer          not null, primary key
+#  title   :string
+#  content :text
+#  user_id :integer
+#  ip_id   :integer
+#
+
 class Post < ApplicationRecord
   has_many :ratings, dependent: :destroy
   belongs_to :user
